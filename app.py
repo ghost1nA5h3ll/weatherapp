@@ -12,10 +12,15 @@ def get_api_config():
 
 def get_weather(city):
     api_key = get_api_config()
-    url = "http://api.openweathermap.org/data/2.5/weather?q={},de&APPID={}".format(city,api_key)
-    req = requests.get(url)
+    url = "http://api.openweathermap.org/data/2.5/weather?q={},de&units=metric&APPID={}".format(city,api_key)
+    req = requests.get(url,)
     data = req.json()
-    print(data)
+    name = data['name']
+    temp = data['main']['temp']
+    desc = data['weather'][0]['description']
+    print(name + ": " + str(temp) + " Celsius "+ desc)
+    label['text'] = '{}\n{}°C\n{}'.format(name,temp,desc)
+    #print(data)
     return data
 
 HEIGHT = 600
